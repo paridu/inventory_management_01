@@ -47,15 +47,20 @@ with a1:
     name = st.selectbox("Product Name:", list_item)
     
     # option to put a new item in the list if the product is not yet recorded in inventory list
-    if st.checkbox("Item not in the list."):
+    not_in_list = st.checkbox("Item not in the list.")
+    if not_in_list:
         name = st.text_input("Product Name:")
         name = name.title()
+        product_id = st.text_input("Product ID:")
+        category = st.text_input("Category:")
+        sub_category = st.text_input("Sub-Category:")
     
     # setting up variables to fill in other columns for each entry (row)
     sel = False
-    product_id = df["product_id"][df["product_name"] == name].values[0]
-    category = df["category"][df["product_name"] == name].values[0]
-    sub_category = df["sub-category"][df["product_name"] == name].values[0]
+    if not_in_list == False:
+        product_id = df["product_id"][df["product_name"] == name].values[0]
+        category = df["category"][df["product_name"] == name].values[0]
+        sub_category = df["sub-category"][df["product_name"] == name].values[0]
     quantity = st.text_input("Quantity:")
 
     # check if the quantity is a number
